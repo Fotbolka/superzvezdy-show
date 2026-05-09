@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  NEW
+  DONE
+}
+
+enum VerificationCodeType {
+  REGISTER
+  RESET_PASSWORD
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  phone        String   @unique
+  name         String
+  surname      String?
+  passwordHash String
+  role         UserRole @default(USER)
+
+  orders       Order[]
+  reviews      Review[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Order {
+  id                 Int         @id @default(autoincrement())
+  userId             Int
+
+  phone              String
+  name               String
+  surname            String?
+
+  animator           String
+  service            String
+  duration           String?
+  price              Int
+
+  date               String
+  address            String
+  comment            String?
+
+  status             OrderStatus @default(NEW)
+
+  acceptedShowFormat Boolean     @default(false)
+  acceptedTerms      Boolean     @default(false)
+
+  user               User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+
+  text      String
+  rating    Int
+  service   String
+
+  userName  String
+  phone     String
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
+}
+
+model VerificationCode {
+  id        Int                  @id @default(autoincrement())
+  phone     String
+  code      String
+  type      VerificationCodeType
+  expiresAt DateTime
+
+  createdAt DateTime @default(now())
+
+  @@map("verification_codes")
+}
