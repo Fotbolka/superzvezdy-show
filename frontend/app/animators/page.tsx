@@ -164,7 +164,9 @@ const steps = [
 ];
 
 export default function AnimatorsPage() {
-  const [selectedAnimator, setSelectedAnimator] = useState<Animator | null>(null);
+  const [selectedAnimator, setSelectedAnimator] = useState<Animator | null>(
+    null
+  );
 
   const totalPrograms = useMemo(() => {
     return animators.reduce((sum, animator) => sum + animator.shows.length, 0);
@@ -174,14 +176,9 @@ export default function AnimatorsPage() {
     const prices = animators.flatMap((animator) =>
       animator.shows.map((show) => show.price)
     );
+
     return Math.min(...prices);
   }, []);
-
-  const featuredAnimator = animators.find(
-    (animator) => animator.name === "Артур Пирожков"
-  )!;
-
-  const featuredShow = featuredAnimator.shows[2];
 
   return (
     <>
@@ -190,24 +187,25 @@ export default function AnimatorsPage() {
       <main className="min-h-screen overflow-hidden bg-black pt-24 text-white">
         {/* HERO */}
         <section className="relative px-4 py-12 sm:px-6 sm:py-16 md:px-20 md:py-20">
-          <div className="pointer-events-none absolute left-[-160px] top-10 h-[280px] w-[280px] rounded-full bg-purple-600/25 blur-[110px] sm:h-[360px] sm:w-[360px]" />
-          <div className="pointer-events-none absolute right-[-180px] top-40 h-[320px] w-[320px] rounded-full bg-pink-500/20 blur-[120px] sm:h-[420px] sm:w-[420px]" />
-          <div className="pointer-events-none absolute bottom-0 left-1/2 h-[240px] w-[240px] rounded-full bg-blue-500/20 blur-[110px] sm:h-[300px] sm:w-[300px]" />
+          <div className="pointer-events-none absolute left-[-160px] top-10 h-[280px] w-[280px] rounded-full bg-blue-600/20 blur-[110px] sm:h-[360px] sm:w-[360px]" />
+          <div className="pointer-events-none absolute right-[-180px] top-40 h-[320px] w-[320px] rounded-full bg-purple-500/20 blur-[120px] sm:h-[420px] sm:w-[420px]" />
+          <div className="pointer-events-none absolute bottom-0 left-1/2 h-[240px] w-[240px] rounded-full bg-white/10 blur-[110px] sm:h-[300px] sm:w-[300px]" />
 
-          <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+          <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-12">
             <div>
               <div className="mb-5 inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-gray-300 backdrop-blur sm:mb-6 sm:px-4 sm:text-sm">
-                <span className="h-2 w-2 shrink-0 rounded-full bg-green-400" />
-                <span className="truncate">Каталог аниматоров и артистов</span>
+                <span className="h-2 w-2 shrink-0 rounded-full bg-blue-400" />
+                <span className="truncate">Вы на странице каталога</span>
               </div>
 
               <h1 className="max-w-4xl text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-7xl">
-                Выберите артиста для яркого праздника
+                Каталог аниматоров и шоу-образов
               </h1>
 
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-300 sm:mt-7 sm:text-lg md:text-xl">
-                Смотрите фото, открывайте подробности, выбирайте формат поздравления
-                и оформляйте заказ прямо на сайте.
+                Здесь собраны все доступные персонажи и программы. Выберите
+                подходящий образ, откройте карточку, посмотрите стоимость,
+                длительность и оформите заявку.
               </p>
 
               <div className="mt-6 max-w-2xl sm:mt-7">
@@ -219,7 +217,7 @@ export default function AnimatorsPage() {
                   href="#catalog"
                   className="rounded-2xl bg-white px-6 py-4 text-center text-base font-bold text-black transition hover:scale-[1.03] hover:bg-gray-200 sm:px-8 sm:text-lg"
                 >
-                  Смотреть каталог
+                  Перейти к каталогу
                 </a>
 
                 <Link
@@ -233,7 +231,7 @@ export default function AnimatorsPage() {
               <div className="mt-8 grid max-w-2xl grid-cols-1 gap-3 sm:mt-12 sm:grid-cols-3 sm:gap-4">
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur sm:p-5">
                   <p className="text-3xl font-black">{animators.length}</p>
-                  <p className="mt-1 text-sm text-gray-400">артистов</p>
+                  <p className="mt-1 text-sm text-gray-400">персонажей</p>
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur sm:p-5">
@@ -250,65 +248,108 @@ export default function AnimatorsPage() {
               </div>
             </div>
 
-            {/* Правая карточка */}
+            {/* Правая карточка каталога */}
             <div className="relative">
-              <div className="absolute -inset-3 rounded-[32px] bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-blue-500/30 blur-2xl sm:-inset-4 sm:rounded-[40px]" />
+              <div className="absolute -inset-3 rounded-[32px] bg-gradient-to-br from-blue-500/25 via-purple-500/20 to-white/10 blur-2xl sm:-inset-4 sm:rounded-[40px]" />
 
-              <div className="relative rounded-[28px] border border-white/10 bg-white/10 p-3 shadow-2xl backdrop-blur sm:rounded-[36px] sm:p-6">
-                <div className="rounded-[24px] bg-black/70 p-4 sm:rounded-[28px] sm:p-6">
-                  <div className="mb-4 flex items-start justify-between gap-4 sm:mb-6">
-                    <div>
-                      <p className="text-sm text-gray-400">Популярный артист</p>
-                      <h2 className="mt-1 text-2xl font-black sm:text-3xl">
-                        {featuredAnimator.name}
-                      </h2>
-                    </div>
+              <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.07] p-5 shadow-2xl backdrop-blur sm:rounded-[36px] sm:p-7">
+                <div className="pointer-events-none absolute right-[-80px] top-[-80px] h-[180px] w-[180px] rounded-full bg-white/10 blur-[70px]" />
 
-                    <div className="rounded-full bg-white px-3 py-2 text-xs font-bold text-black sm:px-4 sm:text-sm">
-                      TOP
-                    </div>
-                  </div>
+                <div className="relative">
+                  <p className="text-xs font-bold uppercase tracking-[0.25em] text-gray-400 sm:text-sm sm:tracking-[0.3em]">
+                    Быстрый выбор
+                  </p>
 
-                  <div className="relative h-[320px] overflow-hidden rounded-[24px] bg-neutral-950 sm:h-[380px] sm:rounded-[28px] lg:h-[430px]">
-                    <img
-                      src={featuredAnimator.image}
-                      alt=""
-                      aria-hidden="true"
-                      className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
-                    />
+                  <h2 className="mt-4 text-3xl font-black sm:text-4xl">
+                    Как выбрать персонажа?
+                  </h2>
 
-                    <img
-                      src={featuredAnimator.image}
-                      alt={featuredAnimator.name}
-                      className="relative z-10 h-full w-full object-contain p-3"
-                    />
-                  </div>
+                  <p className="mt-4 text-sm leading-relaxed text-gray-300 sm:text-base">
+                    Не обязательно сразу знать точный формат. Начните с типа
+                    праздника, затем откройте карточку персонажа и выберите
+                    подходящую программу.
+                  </p>
 
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4 sm:mt-5 sm:p-5">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <div>
-                        <h3 className="text-lg font-bold sm:text-xl">
-                          {featuredShow.name}
-                        </h3>
+                  <div className="mt-6 space-y-3 sm:mt-7">
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-4 sm:p-5">
+                      <div className="flex gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-sm font-black text-black">
+                          01
+                        </div>
 
-                        <p className="mt-1 text-sm text-gray-400">
-                          {featuredShow.duration} · {featuredAnimator.tag}
-                        </p>
+                        <div>
+                          <h3 className="font-bold">
+                            Определите формат праздника
+                          </h3>
+
+                          <p className="mt-1 text-sm leading-relaxed text-gray-400">
+                            День рождения, корпоратив, свадьба, юбилей или
+                            детское мероприятие.
+                          </p>
+                        </div>
                       </div>
-
-                      <p className="text-2xl font-black">
-                        {featuredShow.price.toLocaleString("ru-RU")} ₽
-                      </p>
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setSelectedAnimator(featuredAnimator)}
-                      className="mt-5 block w-full rounded-xl bg-white px-5 py-3 text-center font-bold text-black transition hover:bg-gray-200"
-                    >
-                      Открыть подробнее
-                    </button>
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-4 sm:p-5">
+                      <div className="flex gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-sm font-black text-black">
+                          02
+                        </div>
+
+                        <div>
+                          <h3 className="font-bold">
+                            Откройте карточку персонажа
+                          </h3>
+
+                          <p className="mt-1 text-sm leading-relaxed text-gray-400">
+                            Внутри будут описание, кому подходит образ,
+                            программы и стоимость.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-white/10 bg-black/40 p-4 sm:p-5">
+                      <div className="flex gap-4">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-sm font-black text-black">
+                          03
+                        </div>
+
+                        <div>
+                          <h3 className="font-bold">Оставьте заявку</h3>
+
+                          <p className="mt-1 text-sm leading-relaxed text-gray-400">
+                            Выберите программу, дату, адрес и отправьте заявку
+                            на согласование.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
+                  <div className="mt-6 rounded-3xl border border-white/10 bg-white/[0.05] p-4 sm:p-5">
+                    <p className="text-sm font-bold text-gray-300">
+                      Популярные форматы:
+                    </p>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {eventTypes.slice(0, 5).map((type) => (
+                        <span
+                          key={type}
+                          className="rounded-full border border-white/10 bg-black/30 px-3 py-2 text-xs font-semibold text-gray-300"
+                        >
+                          {type}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <a
+                    href="#catalog"
+                    className="mt-6 block w-full rounded-2xl bg-white px-6 py-4 text-center font-bold text-black transition hover:scale-[1.02] hover:bg-gray-200"
+                  >
+                    Смотреть персонажей
+                  </a>
                 </div>
               </div>
             </div>
@@ -330,8 +371,8 @@ export default function AnimatorsPage() {
               </div>
 
               <p className="max-w-xl text-sm leading-relaxed text-gray-400 sm:text-base">
-                Можно выбрать короткое поздравление, шоу-программу или насыщенный
-                формат с конкурсами, спецэффектами и подарками.
+                Можно выбрать короткое поздравление, шоу-программу или
+                насыщенный формат с конкурсами, спецэффектами и подарками.
               </p>
             </div>
 
@@ -361,8 +402,9 @@ export default function AnimatorsPage() {
               </h2>
 
               <p className="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-gray-400 sm:text-base">
-                У каждого артиста доступны три формата поздравления:
-                экспресс, шоу и супер шоу.
+                У большинства персонажей доступны три формата поздравления:
+                экспресс, шоу и супер шоу. У отдельных программ действует
+                индивидуальный формат и стоимость.
               </p>
             </div>
 
@@ -468,7 +510,7 @@ export default function AnimatorsPage() {
 
         {/* FOOTER */}
         <footer className="border-t border-white/10 px-4 py-10 text-center text-sm text-gray-500 sm:px-6">
-          © 2026 Аниматоры Новосибирск. Каталог артистов и шоу-программ.
+          © 2026 Суперзвезды.Шоу. Каталог персонажей и шоу-программ.
         </footer>
 
         {/* МОДАЛЬНОЕ ОКНО */}
@@ -528,8 +570,9 @@ export default function AnimatorsPage() {
                     </p>
 
                     <p className="mt-1">
-                      Услуга не является официальным выступлением настоящего артиста и не связана
-                      с его представителями, лейблом или правообладателями.
+                      Услуга не является официальным выступлением настоящего
+                      артиста и не связана с его представителями, лейблом или
+                      правообладателями.
                     </p>
                   </div>
 

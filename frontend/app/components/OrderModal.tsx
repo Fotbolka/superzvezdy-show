@@ -39,6 +39,19 @@ export default function OrderModal({ show, onClose }: any) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    const previousWidth = document.body.style.width;
+
+    document.body.style.overflow = "hidden";
+    document.body.style.width = "100%";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.body.style.width = previousWidth;
+    };
+  }, []);
+
+  useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !loading) {
         onClose();
@@ -133,23 +146,23 @@ export default function OrderModal({ show, onClose }: any) {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/75 px-3 py-5 sm:px-4 sm:py-8"
+      className="fixed inset-0 z-[9999] flex items-start justify-center overflow-x-hidden overflow-y-auto bg-black/75 p-3 sm:items-center sm:px-4 sm:py-8"
       onClick={() => {
         if (!loading) onClose();
       }}
     >
       <div
-        className="max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-[24px] bg-white p-4 text-black shadow-2xl sm:rounded-[32px] sm:p-6"
+        className="max-h-[92dvh] w-full max-w-[calc(100vw-24px)] min-w-0 overflow-x-hidden overflow-y-auto overscroll-contain rounded-[24px] bg-white p-4 text-black shadow-2xl sm:max-h-[92vh] sm:max-w-lg sm:rounded-[32px] sm:p-6"
         onClick={(e) => e.stopPropagation()}
       >
         {/* HEADER */}
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-neutral-400 sm:text-sm">
+        <div className="flex min-w-0 items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="break-words text-xs font-bold uppercase tracking-[0.2em] text-neutral-400 sm:text-sm sm:tracking-[0.25em]">
               Оформление заявки
             </p>
 
-            <h2 className="mt-2 pr-2 text-2xl font-black sm:text-3xl">
+            <h2 className="mt-2 break-words pr-2 text-2xl font-black leading-tight sm:text-3xl">
               Заказать поздравление
             </h2>
           </div>
@@ -165,33 +178,33 @@ export default function OrderModal({ show, onClose }: any) {
         </div>
 
         {/* SELECTED SHOW */}
-        <div className="mt-6 rounded-3xl border border-neutral-200 bg-neutral-50 p-4 sm:p-5">
+        <div className="mt-6 min-w-0 overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-50 p-4 sm:p-5">
           <p className="text-sm font-semibold text-neutral-500">
             Вы выбрали
           </p>
 
-          <h3 className="mt-2 text-2xl font-black">
+          <h3 className="mt-2 break-words text-2xl font-black leading-tight">
             {show.name}
           </h3>
 
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <div className="rounded-2xl bg-white p-4">
+          <div className="mt-4 grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="min-w-0 rounded-2xl bg-white p-4">
               <p className="text-xs text-neutral-500">Длительность</p>
-              <p className="mt-1 font-bold">
+              <p className="mt-1 break-words font-bold">
                 {show.duration || "Не указана"}
               </p>
             </div>
 
-            <div className="rounded-2xl bg-white p-4">
+            <div className="min-w-0 rounded-2xl bg-white p-4">
               <p className="text-xs text-neutral-500">Стоимость</p>
-              <p className="mt-1 font-bold">
+              <p className="mt-1 break-words font-bold">
                 {Number(show.price || 0).toLocaleString("ru-RU")} ₽
               </p>
             </div>
           </div>
 
           {/* ВЫБОР АНИМАТОРА */}
-          <div className="mt-4">
+          <div className="mt-4 min-w-0">
             <label className="mb-2 block text-sm font-semibold text-neutral-700">
               Аниматор / персонаж
             </label>
@@ -200,7 +213,7 @@ export default function OrderModal({ show, onClose }: any) {
               <select
                 value={selectedAnimator}
                 onChange={(e) => setSelectedAnimator(e.target.value)}
-                className="w-full rounded-xl border border-neutral-300 bg-white p-3 outline-none transition focus:border-black"
+                className="w-full min-w-0 max-w-full rounded-xl border border-neutral-300 bg-white p-3 outline-none transition focus:border-black"
               >
                 <option value="">Выберите аниматора</option>
 
@@ -211,7 +224,7 @@ export default function OrderModal({ show, onClose }: any) {
                 ))}
               </select>
             ) : (
-              <div className="rounded-xl border border-neutral-300 bg-white p-3 font-bold">
+              <div className="min-w-0 break-words rounded-xl border border-neutral-300 bg-white p-3 font-bold">
                 {selectedAnimator || "Не указан"}
               </div>
             )}
@@ -219,20 +232,20 @@ export default function OrderModal({ show, onClose }: any) {
         </div>
 
         {/* LEGAL NOTICE */}
-        <div className="mt-5 rounded-3xl border border-yellow-300 bg-yellow-50 p-4 text-sm leading-relaxed text-yellow-900 sm:p-5">
-          <p className="font-bold">
+        <div className="mt-5 min-w-0 overflow-hidden rounded-3xl border border-yellow-300 bg-yellow-50 p-4 text-sm leading-relaxed text-yellow-900 sm:p-5">
+          <p className="break-words font-bold">
             Важно: это ростовая кукла / пародийный шоу-образ.
           </p>
 
-          <p className="mt-2">
+          <p className="mt-2 break-words">
             Услуга не является официальным выступлением настоящего артиста и не
             связана с его представителями, лейблом или правообладателями.
           </p>
         </div>
 
         {/* INPUTS */}
-        <div className="mt-5 space-y-3">
-          <div>
+        <div className="mt-5 min-w-0 space-y-3">
+          <div className="min-w-0">
             <label className="mb-2 block text-sm font-semibold text-neutral-700">
               Дата мероприятия
             </label>
@@ -241,14 +254,14 @@ export default function OrderModal({ show, onClose }: any) {
               type="date"
               min={new Date().toLocaleDateString("en-CA")}
               value={form.date}
-              className="w-full rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
+              className="w-full min-w-0 max-w-full rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
               onChange={(e) =>
                 setForm({ ...form, date: e.target.value })
               }
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-sm font-semibold text-neutral-700">
               Адрес
             </label>
@@ -256,14 +269,14 @@ export default function OrderModal({ show, onClose }: any) {
             <input
               placeholder="Например: Новосибирск, ул. Ленина, 10"
               value={form.address}
-              className="w-full rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
+              className="w-full min-w-0 max-w-full rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
               onChange={(e) =>
                 setForm({ ...form, address: e.target.value })
               }
             />
           </div>
 
-          <div>
+          <div className="min-w-0">
             <label className="mb-2 block text-sm font-semibold text-neutral-700">
               Комментарий
             </label>
@@ -271,7 +284,7 @@ export default function OrderModal({ show, onClose }: any) {
             <textarea
               placeholder="Укажите время, формат праздника, количество гостей или другие пожелания"
               value={form.comment}
-              className="min-h-[110px] w-full resize-none rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
+              className="min-h-[110px] w-full min-w-0 max-w-full resize-none rounded-xl border border-neutral-300 p-3 outline-none transition focus:border-black"
               onChange={(e) =>
                 setForm({ ...form, comment: e.target.value })
               }
@@ -280,8 +293,8 @@ export default function OrderModal({ show, onClose }: any) {
         </div>
 
         {/* CONFIRMATION */}
-        <div className="mt-5 space-y-3">
-          <label className="flex items-start gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700">
+        <div className="mt-5 min-w-0 space-y-3">
+          <label className="flex min-w-0 items-start gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700">
             <input
               type="checkbox"
               checked={acceptedShowFormat}
@@ -289,13 +302,13 @@ export default function OrderModal({ show, onClose }: any) {
               className="mt-1 h-4 w-4 shrink-0 cursor-pointer"
             />
 
-            <span>
+            <span className="min-w-0 break-words">
               Я понимаю, что оформляю заявку на выступление ростовой куклы /
               пародийного шоу-образа, а не на выступление настоящего артиста.
             </span>
           </label>
 
-          <label className="flex items-start gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700">
+          <label className="flex min-w-0 items-start gap-3 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-xs leading-relaxed text-neutral-700">
             <input
               type="checkbox"
               checked={acceptedTerms}
@@ -303,7 +316,7 @@ export default function OrderModal({ show, onClose }: any) {
               className="mt-1 h-4 w-4 shrink-0 cursor-pointer"
             />
 
-            <span>
+            <span className="min-w-0 break-words">
               Я соглашаюсь с{" "}
               <a
                 href="/terms"

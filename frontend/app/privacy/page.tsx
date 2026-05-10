@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 export default function PrivacyPage() {
   return (
-    <>
+    <div>
       <Header />
 
       <main className="min-h-screen overflow-hidden bg-black pt-24 text-white">
@@ -27,7 +27,7 @@ export default function PrivacyPage() {
 
               <p className="mt-5 max-w-3xl text-base leading-relaxed text-gray-300 sm:text-lg">
                 Настоящая политика описывает, какие персональные данные собирает
-                сайт AnimatorNSK, для каких целей они используются, как защищаются
+                сайт superzvezdy-show, для каких целей они используются, как защищаются
                 и какие права есть у пользователя.
               </p>
             </div>
@@ -39,7 +39,7 @@ export default function PrivacyPage() {
               </h2>
 
               <p className="mt-3 leading-relaxed">
-                Сайт AnimatorNSK используется для регистрации пользователей,
+                Сайт superzvezdy-show используется для регистрации пользователей,
                 обработки заявок на поздравительные программы, публикации отзывов
                 и связи с пользователем по вопросам оказания услуг. Сайт не продаёт
                 персональные данные пользователей третьим лицам.
@@ -50,7 +50,7 @@ export default function PrivacyPage() {
               <Section title="1. Общие положения">
                 <p>
                   1.1. Настоящая Политика конфиденциальности определяет порядок
-                  обработки и защиты персональных данных пользователей сайта AnimatorNSK.
+                  обработки и защиты персональных данных пользователей сайта superzvezdy-show.
                 </p>
 
                 <p>
@@ -395,10 +395,10 @@ export default function PrivacyPage() {
         </section>
 
         <footer className="border-t border-white/10 px-4 py-10 text-center text-sm text-gray-500 sm:px-6">
-          © 2026 AnimatorNSK. Политика конфиденциальности.
+          © 2026 superzvezdy-show. Политика конфиденциальности.
         </footer>
       </main>
-    </>
+    </div>
   );
 }
 
